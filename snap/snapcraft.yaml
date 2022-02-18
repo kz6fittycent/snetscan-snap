@@ -1,0 +1,41 @@
+name: snetscan
+version: 'git'
+summary: Simple Network Scanner -- Print hosts connected to the network
+description: |
+  Simple Network Scanner -- Print hosts connected to the network
+  
+  For more info, see the developer's repo: https://github.com/Dr-Noob/snetscan 
+  
+license: MIT
+
+base: core20
+grade: stable
+confinement: strict
+compression: lzo
+
+architectures:
+  - build-on: amd64
+    run-on: [amd64, armhf, arm64, ppc64el, s390x]   
+  
+apps:
+  snetscan:
+    command: usr/local/bin/snetscan
+    plugs:
+      - network
+      - network-bind
+      
+parts:
+  snetscan:
+    source: https://github.com/Dr-Noob/snetscan
+    source-type: git
+    plugin: make
+      
+    build-packages:
+      - wget
+      - libnet-dev
+      - libpcap-dev
+    
+    stage-packages:
+      - wget
+      - libnet-dev
+      - libpcap-dev    
